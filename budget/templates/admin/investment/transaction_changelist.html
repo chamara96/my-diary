@@ -1,0 +1,37 @@
+{% extends "admin/change_list.html" %}
+
+{% block content %}
+<h2>Summary Table</h2>
+<table border="1" cellpadding="5" cellspacing="0">
+    <thead>
+        <tr>
+            <th>User</th>
+            <th>Bank</th>
+            <th>Currency</th>
+            <th>Total Amount</th>
+            <th>Amount (LKR)</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for row in summary_data %}
+        <tr>
+            <td>{{ row.user__username }}</td>
+            <td>{{ row.bank__name }}</td>
+            <td>{{ row.currency }}</td>
+            <td>{{ row.total_amount }}</td>
+            <td>{{ row.amount_lkr|floatformat:2 }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+    <tfoot>
+        <tr>
+            <th colspan="4" style="text-align:right;">Grand Total (LKR)</th>
+            <th>{{ grand_total_lkr|floatformat:2 }}</th>
+        </tr>
+    </tfoot>
+</table>
+
+<hr>
+
+{{ block.super }}
+{% endblock %}

@@ -1,0 +1,59 @@
+{% extends "admin/change_list.html" %}
+{% block object-tools-items %}
+{{ block.super }}
+      <li>
+        <a href="{{ generate_template_url }}" class="addlink">Generate From Template</a>
+      </li>
+{% endblock %}
+
+{% block extrahead %}
+{{ block.super }}
+<style>
+  .row-color1{
+    background: var(--darkened-bg) !important;
+  }
+  .row-color2{
+    background: var(--body-bg) !important;
+  }
+</style>
+{% endblock %}
+
+
+{% block footer %}
+{{ block.super }}
+<script>
+  // Get a reference to the table
+  var table = document.getElementById("result_list");
+
+  // Get all the rows in the table body
+  var rows = table.getElementsByTagName("tbody")[0].children;
+
+  // Initialize variables to keep track of the last value in the first column
+  var lastValue = "";
+  var rowColor = 1; // Used to alternate row colors
+  // debugger;
+  // Iterate through the rows
+  for (var i = 0; i < rows.length; i++) {
+    var currentValue = rows[i].getElementsByTagName("td")[1].textContent;
+    // debugger;
+    // Check if the current value is different from the last value
+    if (currentValue !== lastValue) {
+      // Toggle between row colors
+      rowColor = 1 - rowColor;
+    } else{
+      rows[i].getElementsByTagName("td")[1].textContent = "";
+    }
+
+    // Apply the appropriate CSS class based on rowColor
+    if (rowColor === 1) {
+      rows[i].classList.add("row-color1");
+    } else {
+      rows[i].classList.add("row-color2");
+    }
+
+    // Update the lastValue
+    lastValue = currentValue;
+  }
+</script>
+
+{% endblock %}

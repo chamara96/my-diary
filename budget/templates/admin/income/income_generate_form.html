@@ -1,0 +1,11 @@
+{% extends "admin/base_site.html" %}
+{% load static %}
+
+{% block content %}
+  <form method="post" novalidate>
+    {% csrf_token %}
+    {{ form.as_p }}
+    <input type="submit" value="Generate" class="default">
+    <a href="{% url 'admin:income_income_changelist' %}" class="button" style="padding: 10px 15px; background: gray;">Cancel</a>
+  </form>
+{% endblock %}

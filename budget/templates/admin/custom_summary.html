@@ -1,0 +1,48 @@
+{% extends "admin/base_site.html" %}
+{% load static %}
+
+{% block content %}
+  <h1>Takehome Income Summary Report</h1>
+  <div class="app-custom-summary">
+    <!-- your HTML summary table here -->
+    <table class="admin-summary-table">
+      <thead>
+        <tr>
+          <th>Month</th>
+          <th>Column B</th>
+          <th>Take Home</th>
+          <th>Payble Tax</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for row in summary_data %}
+        <tr>
+          <td>{{ row.year }} - {{ row.month }}</td>
+          <td style="padding-top: 0;">
+            <table>
+              <tbody>
+                {% for u in row.users %}
+                <tr>
+                  <td style="border: none;">{{u.user|capfirst}}</td>
+                  <td style="border: none; padding-top: 0; padding-bottom: 0;">
+                    <ul style="margin-bottom: 0;">
+                    {% for i in u.incomes %}
+                      <li>{{ i.currency }} {{ i.total }}</li>
+                    {% endfor %}
+                    </ul>
+                  </td>
+                  <td style="border: none;">LKR {{u.total_income}}</td>
+                  <td style="border: none; color: red;">{% if u.total_payble_tax %} LKR {{u.total_payble_tax}} {% endif %}</td>
+                </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+          </td>
+          <td><strong>LKR {{row.total_income}}</strong></td>
+          <td style="color: red;"><strong>{% if row.total_payble_tax %} LKR {{row.total_payble_tax}} {% endif %}</strong></td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+{% endblock %}
