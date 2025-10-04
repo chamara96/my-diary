@@ -1,4 +1,6 @@
 from django.contrib import admin
+from django.contrib.auth.admin import UserAdmin
+from django.contrib.auth.models import User
 from django.db.models import Sum
 from django.template.response import TemplateResponse
 from django.urls import path, reverse
@@ -156,3 +158,4 @@ class MyAdminSite(admin.AdminSite):
 
 # Use your custom AdminSite instead of the default one
 admin_site = MyAdminSite(name="myadmin")
+admin_site.register(User, UserAdmin)
